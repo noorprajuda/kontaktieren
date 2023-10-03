@@ -4,11 +4,23 @@ ion-item:hover {
 }
 
 ion-item {
-    --padding-start: 20px;
+    /* --padding-start: 20px;
+    --padding-end: 20px; */
+    display: flex !important;
+    align-content: center !important;
+    align-items: center !important;
 }
 
 ion-item::part(detail-icon) {
     color: #ff00ff;
     opacity: 1
 }
+
+.ion-margin-x {
+    margin-left: 20px;
+    margin-right: 20px;
+    
+}
+
+
 

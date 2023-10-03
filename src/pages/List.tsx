@@ -1,9 +1,24 @@
-import { IonAvatar, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonChip, IonContent, IonDatetime, IonFab, IonFabButton, IonHeader, IonIcon, IonImg, IonItem, IonLabel, IonMenuButton, IonModal, IonPage, IonRefresher, IonRefresherContent, IonSearchbar, IonSegment, IonSegmentButton, IonSkeletonText, IonTitle, IonToolbar, useIonAlert, useIonToast, useIonViewWillEnter } from '@ionic/react';
-import { addOutline, trashBinOutline } from 'ionicons/icons';
+import { IonAvatar, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonChip, IonCol, IonContent, IonDatetime, IonFab, IonFabButton, IonHeader, IonIcon, IonImg, IonInput, IonItem, IonLabel, IonMenuButton, IonModal, IonPage, IonRefresher, IonRefresherContent, IonRow, IonSearchbar, IonSegment, IonSegmentButton, IonSkeletonText, IonTitle, IonToolbar, useIonAlert, useIonToast, useIonViewWillEnter } from '@ionic/react';
+import { addOutline, logInOutline, trashBinOutline } from 'ionicons/icons';
 import React, { useEffect, useRef, useState } from 'react';
 import './List.css'
 
 const List: React.FC = () => {
+    const nameInputRef = useRef<HTMLIonInputElement>(null)
+    const emailInputRef = useRef<HTMLIonInputElement>(null)
+
+    const doAddContact = async () => {
+        const name = nameInputRef?.current?.value || [];        
+        const email = emailInputRef?.current?.value;
+
+        if (!name || !email){
+            return;
+        }
+
+        setUsers([{name, email}, ...users])
+        cardModal.current?.dismiss()   
+    }
+
     const [loading, setLoading] = useState<boolean>(true);
     const [showAlert] = useIonAlert();
     const [showToast] = useIonToast();
@@ -22,7 +37,7 @@ const List: React.FC = () => {
 
     useIonViewWillEnter(async ()=>{
         const Users = await getUsers();
-        console.log('🚀 ~ file: List.tsx12 ~getUsers ~users :', users);
+        console.log('🚀 ~ file: List.tsx12 ~getUsers ~users :', Users);
         setUsers(Users);
         setLoading(false);
     })
@@ -113,15 +128,16 @@ const List: React.FC = () => {
                         <IonCardContent className='ion-no-padding'>
                             <IonItem lines='none'>
                                 <IonAvatar slot='start'>
-                                    <IonImg src={user.picture.large} />
+                                    { user.picture?.large ? <IonImg src={user.picture?.large ? user.picture?.large : null } /> : <IonSkeletonText/> }
                                 </IonAvatar>
                                 <IonLabel>
-                                    {user.name.first} {user.name.last}
+                                    {user.name.first ? user.name.first : user.name } {user.name.last ? user.name.last : null}
                                     <p>{user.email}</p>
                                 </IonLabel>
-                                <IonChip slot='end' color={'primary'}>
-                                    {user.nat}
-                                </IonChip>
+                                {   user.nat ? 
+                                    <IonChip slot='end' color={'primary'}> {user.nat}</IonChip>
+                                    : null 
+                                }
                             </IonItem>
                             
                         </IonCardContent>
@@ -152,12 +168,13 @@ const List: React.FC = () => {
                         {activeSegment === 'details' && (
                             <IonCard>
                                 <IonAvatar slot='start'>
-                                    <IonImg src={selectedUser?.picture.large} />
+                                    { selectedUser?.picture?.large ? <IonImg src={selectedUser?.picture?.large ? selectedUser?.picture?.large : null } /> : <IonSkeletonText/> }
+
                                 </IonAvatar>
                                 <IonCardContent className='ion-no-padding'>
                                     <IonItem lines='none'>
                                         <IonLabel>
-                                            {selectedUser?.name.first} {selectedUser?.name.last}
+                                            {selectedUser?.name.first ? selectedUser?.name.first : selectedUser?.name } {selectedUser?.name.last ? selectedUser?.name.last : null}
                                             <p>{selectedUser?.email}</p>
                                         </IonLabel>
                                     </IonItem>
@@ -180,12 +197,18 @@ const List: React.FC = () => {
                                 </IonButton>
                             </IonButtons>
                             <IonTitle>
-                            Card Modal
+                            Add Contact
                             </IonTitle>
                         </IonToolbar>
                     </IonHeader>
-                    <IonContent>
-                        <p>My Card Modal</p>
+                    <IonContent class='ion-padding'>
+                    
+                            <IonInput ref={nameInputRef} mode='md' className='ion-margin-top' fill="outline" labelPlacement='floating' label='Name' placeholder='Marsetio Noorprajuda'></IonInput>
+                            <IonInput ref={emailInputRef} className='ion-margin-top' mode='md' fill="outline" labelPlacement='floating' label='Email' type="email" placeholder='marsetio.noor@kontaktieren.com'></IonInput>
+                            <IonButton onClick={doAddContact} className='ion-margin-top' type='submit' expand='block'>
+                                Add New Contact
+                            </IonButton>
+                        
                     </IonContent>
             </IonModal>
             <IonFab vertical='bottom' horizontal='end' slot='fixed'>
