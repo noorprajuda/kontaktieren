@@ -26,7 +26,7 @@ function Tab1() {
                         <IonMenuButton />
                     </IonButtons>
 
-                    <IonTitle>Image Example</IonTitle>
+                    <IonTitle>Upload Photo</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">

@@ -1,6 +1,6 @@
 ion-item:hover {
-    --background: #5cffa8;
-    --coclor: var(--ion-color-dark);
+    --background: #009000;
+    --color: var(--ion-color-primary-contrast);
 }
 
 ion-item {

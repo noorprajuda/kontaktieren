@@ -12,12 +12,12 @@ const Settings: React.FC = () => {
             <IonTabBar slot='bottom'>
                 <IonTabButton tab='tab1' href="/app/settings/tab1">
                     <IonIcon icon={triangle}/>
-                    <IonLabel>Tab 1</IonLabel>
+                    <IonLabel>Upload Photo</IonLabel>
                 </IonTabButton>
 
                 <IonTabButton tab='tab2' href="/app/settings/tab2">
                     <IonIcon icon={ellipse}/>
-                    <IonLabel>Tab 2</IonLabel>
+                    <IonLabel>Verify</IonLabel>
                 </IonTabButton>
             </IonTabBar>
 

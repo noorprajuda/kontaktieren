@@ -44,10 +44,11 @@ const Tab2: React.FC = () => {
                             <IonMenuButton/>
                         </IonButtons>
                         
-                        <IonTitle>Tab 2</IonTitle>
+                        <IonTitle>Verify</IonTitle>
                     </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding" scrollY={false}>
+            <div ref={elementRef} style={{width: 50, height: 50, backgroundColor: 'red'}}></div>
                 <CreateAnimation
                 ref={animationRef}
                 duration={2000}
@@ -60,10 +61,8 @@ const Tab2: React.FC = () => {
                     {offset: 0.5, transform: 'scale(1.5)', opacity: '0.5'},
                     {offset: 1, transform: 'scale(1)', opacity: '1'}
                 ]}>
-                    <IonButton expand='block' color={'success'} className='ion-margin'>Join Kontaktieren App</IonButton>
-                </CreateAnimation>
-
-                <div ref={elementRef} style={{width: 50, height: 50, backgroundColor: 'red'}}></div>
+                    <IonButton routerLink={'/'}  expand='block' color={'success'} className='ion-margin'>Verify your account</IonButton>
+                </CreateAnimation>                
             </IonContent>
         </IonPage>
     );
