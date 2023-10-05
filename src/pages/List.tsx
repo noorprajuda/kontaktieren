@@ -17,7 +17,7 @@ const List: React.FC = () => {
             return;
         }
 
-        setUsers([{name, email}, ...users])
+        setSearchedUser([{name, email}, ...users])
         cardModal.current?.dismiss()   
     }
 
@@ -57,7 +57,7 @@ const List: React.FC = () => {
             message: 'Are you sure you want to delete all users?',
             buttons:[
                 {text: 'Cancel', role: 'cancel'},
-                {text: 'Delete', handler: ()=>{setUsers([]);
+                {text: 'Delete', handler: ()=>{setSearchedUser([]);
                 showToast({
                     message: 'All users deleted',
                     duration: 2000,
@@ -105,7 +105,7 @@ const List: React.FC = () => {
                 </IonToolbar>
 
                 <IonToolbar color={'success'}>
-                    <IonSearchbar    placeholder="Search Api here"
+                    <IonSearchbar    placeholder="Search contact name here"
                   onIonChange={handleChangeSearch}/>
                 </IonToolbar>
             </IonHeader>
