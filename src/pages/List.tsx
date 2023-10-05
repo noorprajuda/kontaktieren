@@ -3,7 +3,16 @@ import { addOutline, logInOutline, trashBinOutline } from 'ionicons/icons';
 import React, { useEffect, useRef, useState } from 'react';
 import './List.css'
 
+type Props = {
+    setQuery: React.Dispatch<React.SetStateAction<string>>;
+  };
+  
+const TIME = 300; // ms
+
 const List: React.FC = () => {
+    const [userinput, setUserinput] = useState<string>([]);
+    const [searchedUser,setSearchedUser] = useState<any[]>([]);
+
     const nameInputRef = useRef<HTMLIonInputElement>(null)
     const emailInputRef = useRef<HTMLIonInputElement>(null)
 
@@ -32,13 +41,14 @@ const List: React.FC = () => {
     const[activeSegment, setActiveSegment] = useState<any>('details');
 
     useEffect(()=>{
-        setPresentingElement(page.current)
+        setPresentingElement(page.current);
     },[])
 
     useIonViewWillEnter(async ()=>{
         const Users = await getUsers();
         console.log('🚀 ~ file: List.tsx12 ~getUsers ~users :', Users);
         setUsers(Users);
+        setSearchedUser(Users);
         setLoading(false);
     })
 
@@ -68,7 +78,23 @@ const List: React.FC = () => {
     const doRefresh = async (event: any) => {
         const data = await getUsers();
         setUsers(data);
+        setSearchedUser(data);
         event.detail.complete();
+    }
+
+    const [query, setQuery] = useState("")
+
+
+    const handleChangeSearch = (event) => {
+        const value = event.target.value;
+        
+        if(value&& value.trim() != ''){
+            setSearchedUser(searchedUser.filter(
+                (user)=> (user?.name?.first.toLowerCase().indexOf(value.toLowerCase()) > -1
+            )))
+        } else {
+            setSearchedUser(users);
+        }
     }
 
     return (
@@ -89,7 +115,8 @@ const List: React.FC = () => {
                 </IonToolbar>
 
                 <IonToolbar color={'success'}>
-                    <IonSearchbar/>
+                    <IonSearchbar    placeholder="Search Api here"
+                  onIonChange={handleChangeSearch}/>
                 </IonToolbar>
             </IonHeader>
 
@@ -123,7 +150,7 @@ const List: React.FC = () => {
                 )}
 
 
-                {users.map((user, index)=>(
+                {searchedUser.map((user, index)=>(
                     <IonCard key={index} onClick={()=> setSelectedUser(user)}>
                         <IonCardContent className='ion-no-padding'>
                             <IonItem lines='none'>
