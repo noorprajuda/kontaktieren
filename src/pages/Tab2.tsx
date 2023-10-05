@@ -13,7 +13,7 @@ const Tab2: React.FC = () => {
             gestureName: 'my-gesture',
             onStart: (ev) => onStartHandler(ev),
             onMove: (ev) => onMoveHandler(ev),
-            onEnd: (ev) => onMoveEnd(ev),
+            // onEnd: (ev) => onMoveEnd(ev),
             
 
         });
@@ -36,6 +36,11 @@ const Tab2: React.FC = () => {
         elementRef.current!.style.transform = `translate(0px, 0px)`;        
     }
 
+    const verifyHandler = ()=>{
+        elementRef.current!.style.transform = `translate(0px, 0px)`;
+        window.location.href = "/"
+    }
+
     return (
         <IonPage>
             <IonHeader>
@@ -48,7 +53,8 @@ const Tab2: React.FC = () => {
                     </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding" scrollY={false}>
-            <div ref={elementRef} style={{width: 50, height: 50, backgroundColor: 'red'}}></div>
+                <p className='text-center justify-center'>Please move the red box to center and then click verify account.</p>
+                <div ref={elementRef} style={{width: 50, height: 50, backgroundColor: 'red'}}></div>
                 <CreateAnimation
                 ref={animationRef}
                 duration={2000}
@@ -61,7 +67,7 @@ const Tab2: React.FC = () => {
                     {offset: 0.5, transform: 'scale(1.5)', opacity: '0.5'},
                     {offset: 1, transform: 'scale(1)', opacity: '1'}
                 ]}>
-                    <IonButton routerLink={'/'}  expand='block' color={'success'} className='ion-margin'>Verify your account</IonButton>
+                    <IonButton onClick={verifyHandler} routerLink={'/'}  expand='block' color={'success'} className='ion-margin'>Verify your account</IonButton>
                 </CreateAnimation>                
             </IonContent>
         </IonPage>
