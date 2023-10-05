@@ -87,7 +87,6 @@ const Login: React.FC = () => {
 
                                             <IonButton onClick={seeIntroAgain} fill='clear' size='small' color={'medium'} className='ion-margin-top' expand='block'>
                                                 Watch intro again
-                                                <IonIcon icon={personCircleOutline} slot='end' />
                                             </IonButton>
                                         </form>
                                     </IonCardContent>
