@@ -3,14 +3,7 @@ import { addOutline, logInOutline, trashBinOutline } from 'ionicons/icons';
 import React, { useEffect, useRef, useState } from 'react';
 import './List.css'
 
-type Props = {
-    setQuery: React.Dispatch<React.SetStateAction<string>>;
-  };
-  
-const TIME = 300; // ms
-
 const List: React.FC = () => {
-    const [userinput, setUserinput] = useState<string>([]);
     const [searchedUser,setSearchedUser] = useState<any[]>([]);
 
     const nameInputRef = useRef<HTMLIonInputElement>(null)
@@ -81,9 +74,6 @@ const List: React.FC = () => {
         setSearchedUser(data);
         event.detail.complete();
     }
-
-    const [query, setQuery] = useState("")
-
 
     const handleChangeSearch = (event) => {
         const value = event.target.value;
